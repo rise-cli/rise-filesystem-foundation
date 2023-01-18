@@ -2,17 +2,8 @@ import fsextra from 'fs-extra'
 import fs from 'fs'
 import archiver from 'archiver'
 
-/** @typedef {import('./types.d').FileSystemLocation} FileSystemLocation */
-/** @typedef {import('./types.d').CopyInstructions} CopyInstructions */
-/** @typedef {import('./types.d').WriteFileInstructions} WriteFileInstructions */
-/** @typedef {import('./types.d').ZipInstructions} ZipInstructions */
-
 /**
- * Folder
- */
-
-/**
- * @param {FileSystemLocation} input
+ * Folders
  */
 export function getDirectories(input) {
     const x = input.other
@@ -22,9 +13,6 @@ export function getDirectories(input) {
         .map((dirent) => dirent.name)
 }
 
-/**
- * @param {FileSystemLocation} input
- */
 export async function makeDir(input) {
     try {
         await fsextra.mkdir(input.projectRoot + input.path)
@@ -40,16 +28,10 @@ export async function makeDir(input) {
     }
 }
 
-/**
- * @param {FileSystemLocation} input
- */
 export async function removeDir(input) {
     fsextra.removeSync(input.projectRoot + input.path)
 }
 
-/**
- * @param {CopyInstructions} input
- */
 export function copyDir(input) {
     fsextra.copySync(
         input.projectRoot + input.source,
@@ -57,10 +39,6 @@ export function copyDir(input) {
     )
 }
 
-/**
- * @param {ZipInstructions} input
- * @returns {Promise<void>}
- */
 export async function zipFolder(input) {
     const COMPRESSION_LEVEL = 9
     const source = input.projectRoot + input.source
@@ -92,38 +70,22 @@ export async function zipFolder(input) {
 /**
  * Files
  */
-
-/**
- * @param {FileSystemLocation} input
- */
 export async function getFile(input) {
     return await fsextra.readFile(input.projectRoot + input.path)
 }
 
-/**
- * @param {FileSystemLocation} input
- */
 export function getJsFile(input) {
     return import(input.projectRoot + input.path)
 }
 
-/**
- * @param {WriteFileInstructions} input
- */
 export function writeFile(input) {
     fsextra.writeFileSync(input.projectRoot + input.path, input.content)
 }
 
-/**
- * @param {FileSystemLocation} input
- */
 export function removeFile(input) {
     fsextra.removeSync(input.projectRoot + input.path)
 }
 
-/**
- * @param {CopyInstructions} input
- */
 export function copyFile(input) {
     fsextra.copyFileSync(
         input.projectRoot + input.source,
@@ -131,9 +93,6 @@ export function copyFile(input) {
     )
 }
 
-/**
- * @param {FileSystemLocation} input
- */
 export async function getTextContent(input) {
     return fs.readFileSync(input.projectRoot + input.path, 'utf8')
 }

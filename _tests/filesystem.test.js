@@ -12,7 +12,7 @@ import {
     copyFile,
     zipFolder,
     getTextContent
-} from '../index.js'
+} from '../index.mjs'
 
 import path from 'path'
 import { fileURLToPath } from 'url'

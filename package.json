@@ -1,9 +1,8 @@
 {
     "name": "rise-filesystem-foundation",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "",
-    "type": "module",
-    "main": "index.js",
+    "main": "index.mjs",
     "scripts": {
         "test": "node --test && echo \"✅ Tests Pass\""
     },
