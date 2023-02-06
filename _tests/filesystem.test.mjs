@@ -59,7 +59,7 @@ test('realFilesystem can copy a directory with files in it', async () => {
 
 test('realFilesystem can get a js file', async () => {
     const projectRoot = __dirname + '/fsScenarios/jsDir'
-    const app = await getJsFile({ path: '/app.js', projectRoot })
+    const app = await getJsFile({ path: '/app.mjs', projectRoot })
 
     assert.strictEqual(app.default.name, 'example-app')
 })
@@ -67,28 +67,28 @@ test('realFilesystem can get a js file', async () => {
 test('realFilesystem can write a file', async () => {
     const projectRoot = __dirname + '/fsScenarios/writeFile'
     writeFile({
-        path: '/fileA.js',
+        path: '/fileA.mjs',
         content: 'export default {name: "made-app"}',
         projectRoot
     })
 
-    const app = await getJsFile({ path: '/fileA.js', projectRoot })
+    const app = await getJsFile({ path: '/fileA.mjs', projectRoot })
     assert.strictEqual(app.default.name, 'made-app')
-    removeFile({ path: '/fileA.js', projectRoot })
+    removeFile({ path: '/fileA.mjs', projectRoot })
 })
 
 test('realFilesystem can copy files', async () => {
     const projectRoot = __dirname + '/fsScenarios/copyFile'
     copyFile({
-        source: '/source/fileA.js',
-        target: '/target/fileA.js',
+        source: '/source/fileA.mjs',
+        target: '/target/fileA.mjs',
         projectRoot
     })
 
-    const app = await getJsFile({ path: '/target/fileA.js', projectRoot })
+    const app = await getJsFile({ path: '/target/fileA.mjs', projectRoot })
 
     assert.strictEqual(app.default.name, 'copy-app')
-    removeFile({ path: '/target/fileA.js', projectRoot })
+    removeFile({ path: '/target/fileA.mjs', projectRoot })
 })
 
 test('realFilesystem can make a zip a folder', async () => {

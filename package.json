@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.mjs",
     "scripts": {
-        "test": "node --test && echo \"✅ Tests Pass\""
+        "test": "node --test --test-reporter=spec",
+        "release": "npm run test && npm publish"
     },
     "dependencies": {
         "archiver": "^5.3.1",

@@ -1,11 +1,5 @@
 # Rise Filesystem Foundation
 
-## Progress
-
--   ✅ tests
--   ✅ docs
--   🔲 CICD
-
 ## Install
 
 ```
