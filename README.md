@@ -1,10 +1,6 @@
 # Rise Filesystem Foundation
 
-## Progress
-
--   ✅ tests
--   ✅ docs
--   🔲 CICD
+![GitHub CI status](https://github.com/rise-cli/rise-filesystem-foundation/actions/workflows/test.yml/badge.svg)
 
 ## Install
 
