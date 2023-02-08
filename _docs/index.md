@@ -1,8 +1,8 @@
 # Rise Filesystem Foundation
 
-## Install
+[Github](https://github.com/rise-cli/rise-filesystem-foundation)
 
-```
+```bash
 npm i rise-filsystem-foundation
 ```
 
