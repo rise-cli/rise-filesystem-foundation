@@ -3,10 +3,17 @@ import fs from 'fs'
 import archiver from 'archiver'
 
 /**
+ * Helpers
+ */
+function formatWithTrailingSlash(x) {
+    return x[x.length - 1] !== '/' ? '/' : ''
+}
+
+
+/**
  * Folders
  */
 export function getDirectories(input) {
-    const x = input.other
     return fsextra
         .readdirSync(input.projectRoot + input.path, { withFileTypes: true })
         .filter((dirent) => dirent.isDirectory())
@@ -29,33 +36,28 @@ export async function makeDir(input) {
 }
 
 export async function removeDir(input) {
-    fsextra.removeSync(input.projectRoot + input.path)
+    const path = input.projectRoot + input.path
+    fsextra.removeSync(path)
 }
 
 export function copyDir(input) {
-    fsextra.copySync(
-        input.projectRoot + input.source,
-        input.projectRoot + input.target
-    )
+    const source = input.projectRoot + input.source
+    const target = input.projectRoot + input.target
+    fsextra.copySync(source, target)
 }
 
 export async function zipFolder(input) {
     const COMPRESSION_LEVEL = 9
     const source = input.projectRoot + input.source
-    let target = input.projectRoot + input.target
+    const target = input.projectRoot + formatWithTrailingSlash(input.target)
     const name = input.name
 
     if (!fs.existsSync(target)) {
         fs.mkdirSync(target)
     }
 
-    if (target[target.length - 1] !== '/') {
-        target = target + '/'
-    }
-
     const archive = archiver('zip', { zlib: { level: COMPRESSION_LEVEL } })
     const stream = fs.createWriteStream(target + name + '.zip')
-
     return new Promise((resolve, reject) => {
         archive
             .directory(source, false)
@@ -71,28 +73,32 @@ export async function zipFolder(input) {
  * Files
  */
 export async function getFile(input) {
-    return await fsextra.readFile(input.projectRoot + input.path)
+    const path = input.projectRoot + input.path
+    return await fsextra.readFile(path)
 }
 
 export function getJsFile(input) {
-    return import(input.projectRoot + input.path)
+    const path = input.projectRoot + input.path
+    return import(path)
 }
 
 export function writeFile(input) {
-    fsextra.writeFileSync(input.projectRoot + input.path, input.content)
+    const path = input.projectRoot + input.path
+    fsextra.writeFileSync(path, input.content)
 }
 
 export function removeFile(input) {
-    fsextra.removeSync(input.projectRoot + input.path)
+    const path = input.projectRoot + input.path
+    fsextra.removeSync(path)
 }
 
 export function copyFile(input) {
-    fsextra.copyFileSync(
-        input.projectRoot + input.source,
-        input.projectRoot + input.target
-    )
+    const source = input.projectRoot + input.source
+    const target = input.projectRoot + input.target
+    fsextra.copyFileSync(source, target)
 }
 
 export async function getTextContent(input) {
-    return fs.readFileSync(input.projectRoot + input.path, 'utf8')
+    const path = input.projectRoot + input.path
+    return fs.readFileSync(path, 'utf8')
 }
